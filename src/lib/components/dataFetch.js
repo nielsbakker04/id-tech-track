@@ -12,13 +12,13 @@ export async function fetchMovies(trilogyTitles) {
     
         // asynchroon data fetchen 
         // bron: werkgroep Berry (notion)
-        const response = await fetch(`http://www.omdbapi.com/?s=${encodeURIComponent(trilogy)}&apikey=${apiKey}`);
+        const response = await fetch(`https://www.omdbapi.com/?s=${encodeURIComponent(trilogy)}&apikey=${apiKey}`);
         const data = await response.json();
 
         if (data.Response === "True") {
             for (const movie of data.Search) {
         
-                const detailsResponse = await fetch(`http://www.omdbapi.com/?i=${movie.imdbID}&apikey=${apiKey}`);
+                const detailsResponse = await fetch(`https://www.omdbapi.com/?i=${movie.imdbID}&apikey=${apiKey}`);
                 const detailsData = await detailsResponse.json();
 
                 movieData.push({
