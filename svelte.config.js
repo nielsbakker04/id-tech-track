@@ -5,7 +5,7 @@ const config = {
 	kit: {
 		// Gebruik de Vercel-adapter
 		adapter: vercel({
-			runtime: 'node20' // Gebruik Node.js 20
+			runtime: 'nodejs18.x' // Gebruik Node.js 18
 		})
 	}
 };
