@@ -96,6 +96,7 @@ onMount(async() => {
     
     console.log(trilogies)
 
+
     // naam trilogie (string) omzetten naar een geldige classnaam: leestekens verwijderen, geen spaties, etc.
     // zodat de elementen die bij elkaar horen op dezelfde manier kunnen worden aangesproken
     // bron:    https://gist.github.com/dbowling/2589645
@@ -105,6 +106,8 @@ onMount(async() => {
         return series.replace(/\s+/g, "-").replace(/[^a-zA-Z0-9\-]/g, "").toLowerCase();
     }
 
+
+    
     // filter functie met genre die kijkt of de genre is gedefinieerd en overeenkomt met de selectedGenre
     function filterByGenre(selectedGenre) {
         return trilogies.filter(([series, movies]) =>
@@ -135,7 +138,6 @@ onMount(async() => {
         svg.selectAll("[class^='path-']").remove();
         svg.selectAll("[class^='title-']").remove();
 
-
         trilogies.forEach(([series, movies]) => {
         
         const posterList = d3.select("#poster-list"); 
@@ -150,7 +152,8 @@ onMount(async() => {
             .attr("width", 2 * 40)
             .attr("height", 3 * 40)
             .style("cursor", "pointer")
-            .on("mouseover", function () {
+            // poster - mouseover
+            .on("mouseover", () => {
                 tooltip.style("visibility", "visible")
                         .text(series);
 
@@ -175,11 +178,13 @@ onMount(async() => {
                 d3.selectAll(`.circle-${formattedSeries}`)
                     .attr("visibility", "visible");})
 
-            .on("mousemove", function (e) {
+            // poster - mousemove
+            .on("mousemove", (e) => {
                 tooltip.style("top", e.pageY - 10 + "px")
-                    .style("left", e.pageX + 10 + "px")})
+                        .style("left", e.pageX + 10 + "px")})
 
-            .on("mouseout", function () {
+            // poster - mouseout        
+            .on("mouseout", () => {
                 tooltip.style("visibility", "hidden");
 
                 d3.selectAll("path")
@@ -209,22 +214,6 @@ onMount(async() => {
                 .attr("fill", "white")
                 .attr("class", `circle-${formattedSeries}`)
                 .attr("visibility", "hidden")
-                .on("mouseover", function (e) {
-                        tooltip.style("visibility", "visible")
-                                .text(`${movie.title} - Rating: ${movie.rating}`)
-                        d3.select(this).attr("fill", "yellow")})
-            
-                    .on("mousemove", function (e) {
-                        tooltip
-                            .style("top", e.pageY - 10 + "px")
-                            .style("left", e.pageX + 10 + "px");})
-            
-                    .on("mouseout", function () {
-                        tooltip.style("visibility", "hidden");
-                        d3.select(this)
-                            .attr("fill", "white")
-                            .attr("r", 3)
-                });
 
             svg.append("text")
                 .attr("class", `title-${formattedSeries}`)
@@ -233,7 +222,7 @@ onMount(async() => {
                 .attr("text-anchor", "start")     
                 .attr("fill", "grey")       
                 .attr("font-size", "8")
-                .text(movie.title.length > 25 ? movie.title.slice(0, 25) + "..." : movie.title)
+                .text(movie.title.length > 25 ? movie.title.slice(0, 25) + "..." : movie.title) // max aantal tekens zodat de titels niet overlappen
                 .attr("visibility", "hidden")         
         });
 
@@ -327,7 +316,7 @@ onMount(async() => {
 
     button1.addEventListener("click", () => {
         updateChartWithGenre("Thriller");
-      });
+    });
 
     button2.addEventListener("click", () => {
         updateChartWithGenre("Thriller");
@@ -350,8 +339,7 @@ onMount(async() => {
     });
 
 
-
-
+    // CHART LADEN 
 
     window.addEventListener('DOMContentLoaded', (e) => {
         drawChart(trilogies)
