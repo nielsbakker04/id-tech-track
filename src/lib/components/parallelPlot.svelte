@@ -264,12 +264,12 @@ onMount(async() => {
 
              // lijn - mousemove  (tooltip positioneren naast je cursor)
              // bron: https://medium.com/@mila_frerichs/how-to-create-a-simple-tooltip-in-d3-js-45040afada07
-            .on("mousemove", function (e) {
+            .on("mousemove", (e) => {
                 tooltip.style("top", e.pageY - 10 + "px")
                         .style("left", e.pageX + 10 + "px")})
 
             // lijn - mouseout 
-            .on("mouseout", function () {
+            .on("mouseout", () => {
                 tooltip.style("visibility", "hidden");
                 svg.selectAll("path")
                     .attr("stroke-opacity", 1)
@@ -341,7 +341,7 @@ onMount(async() => {
 
     // CHART LADEN 
 
-    window.addEventListener('DOMContentLoaded', (e) => {
+    window.addEventListener('DOMContentLoaded', () => {
         drawChart(trilogies)
     });
 });
